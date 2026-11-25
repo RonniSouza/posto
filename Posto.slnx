@@ -10,5 +10,6 @@
     <Project Path="tests/Posto.Domain.Tests/Posto.Domain.Tests.csproj" />
     <Project Path="tests/Posto.Application.Tests/Posto.Application.Tests.csproj" />
     <Project Path="tests/Posto.Architecture.Tests/Posto.Architecture.Tests.csproj" />
+    <Project Path="tests/Posto.Infrastructure.Tests/Posto.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>
