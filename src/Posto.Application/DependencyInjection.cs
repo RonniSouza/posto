@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Posto.Application.Precos.ImportarAnp;
 
 namespace Posto.Application;
 
@@ -6,7 +7,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        // Handlers de casos de uso e validações serão registrados aqui.
+        services.AddScoped<ImportarPrecosAnpHandler>();
         return services;
     }
 }

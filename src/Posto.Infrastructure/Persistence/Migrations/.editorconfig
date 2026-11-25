@@ -1,0 +1,3 @@
+# Migrations são geradas pelo dotnet-ef: fora da análise de estilo.
+[*.cs]
+generated_code = true

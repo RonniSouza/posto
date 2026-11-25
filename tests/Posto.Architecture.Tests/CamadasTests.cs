@@ -42,6 +42,41 @@ public class CamadasTests
         Assert.True(result.IsSuccessful, Falhas(result));
     }
 
+    [Fact]
+    public void Domain_NaoDeveDependerDePersistencia()
+    {
+        var result = Types.InAssembly(typeof(Domain.AssemblyReference).Assembly)
+            .ShouldNot()
+            .HaveDependencyOnAny("Microsoft.EntityFrameworkCore", "Npgsql")
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, Falhas(result));
+    }
+
+    [Fact]
+    public void Application_NaoDeveDependerDeDetalhesDeInfraestrutura()
+    {
+        var result = Types.InAssembly(typeof(Application.AssemblyReference).Assembly)
+            .ShouldNot()
+            .HaveDependencyOnAny("Microsoft.EntityFrameworkCore", "Npgsql", "CsvHelper", "System.Net.Http")
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, Falhas(result));
+    }
+
+    [Fact]
+    public void ErrosDoDominio_DevemSerClassesEstaticas()
+    {
+        var result = Types.InAssembly(typeof(Domain.AssemblyReference).Assembly)
+            .That()
+            .HaveNameEndingWith("Errors")
+            .Should()
+            .BeStatic()
+            .GetResult();
+
+        Assert.True(result.IsSuccessful, Falhas(result));
+    }
+
     private static string Falhas(TestResult result) =>
         string.Join(", ", result.FailingTypeNames ?? []);
 }

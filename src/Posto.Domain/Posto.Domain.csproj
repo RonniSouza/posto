@@ -1,2 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <!-- Tipos geométricos (Point) usados pelo PostGIS. É só um modelo de geometria, sem dependência de banco. -->
+    <PackageReference Include="NetTopologySuite" />
+  </ItemGroup>
 </Project>
