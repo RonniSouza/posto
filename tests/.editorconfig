@@ -1,0 +1,3 @@
+# Testes usam nomes no padrão Metodo_Cenario_Resultado; sublinhados são intencionais.
+[*.cs]
+dotnet_diagnostic.CA1707.severity = none
