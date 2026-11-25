@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgis/postgis:17-3.5
+    container_name: posto-postgres
+    environment:
+      POSTGRES_DB: posto
+      POSTGRES_USER: posto
+      POSTGRES_PASSWORD: posto_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - posto-pgdata:/var/lib/postgresql/data
+
+volumes:
+  posto-pgdata:

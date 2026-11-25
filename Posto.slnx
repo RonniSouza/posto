@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Posto.Domain/Posto.Domain.csproj" />
+    <Project Path="src/Posto.Application/Posto.Application.csproj" />
+    <Project Path="src/Posto.Infrastructure/Posto.Infrastructure.csproj" />
+    <Project Path="src/Posto.Api/Posto.Api.csproj" />
+    <Project Path="src/Posto.Worker/Posto.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Posto.Domain.Tests/Posto.Domain.Tests.csproj" />
+    <Project Path="tests/Posto.Architecture.Tests/Posto.Architecture.Tests.csproj" />
+  </Folder>
+</Solution>
