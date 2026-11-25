@@ -5,7 +5,7 @@ Projeto de portfólio: .NET 10 + Angular, Clean Architecture e Clean Code.
 
 ## Stack
 
-- **Backend:** .NET 10, ASP.NET Core, Worker Service, EF Core (em breve), PostgreSQL + PostGIS
+- **Backend:** .NET 10, ASP.NET Core, Worker Service, EF Core + NetTopologySuite, PostgreSQL + PostGIS
 - **Front-end:** Angular (pasta `web/`)
 - **Dados:** Série Histórica de Preços de Combustíveis da ANP (dados abertos)
 - **Testes:** xUnit, NetArchTest
@@ -21,6 +21,8 @@ src/
   Posto.Worker/          jobs agendados (importação ANP)
 tests/
   Posto.Domain.Tests/
+  Posto.Application.Tests/    caso de uso de importação (repositórios falsos)
+  Posto.Infrastructure.Tests/ leitor do CSV e mapeamento EF (sem banco)
   Posto.Architecture.Tests/   garante a direção das dependências
 web/                     front-end Angular
 docs/adr/                decisões de arquitetura
@@ -37,12 +39,31 @@ dotnet test Posto.slnx
 dotnet run --project src/Posto.Api
 ```
 
+### Importar os preços da ANP
+
+O Worker aplica as migrations e baixa os CSVs semanais da ANP, importando Recife e Olinda (configurável em
+`src/Posto.Worker/appsettings.json`). Para rodar uma vez e sair:
+
+```bash
+dotnet run --project src/Posto.Worker -- --Importacao:ExecutarUmaVez=true
+```
+
+`Anp:Arquivos` também aceita caminhos locais, para importar um CSV já baixado.
+
+### Migrations
+
+```bash
+dotnet tool restore
+dotnet ef migrations add <Nome> -p src/Posto.Infrastructure -s src/Posto.Infrastructure -o Persistence/Migrations
+```
+
 Health check: `GET https://localhost:7180/health` · OpenAPI: `/openapi/v1.json` (ambiente Development).
 
 ## Roadmap
 
 - [x] Fase 0 — Fundação (solução, padrões, CI, ADRs)
-- [ ] Fase 1 — Domínio de Postos/Preços e importação da ANP
+- [x] Fase 1 — Domínio de Postos/Preços e importação da ANP
+- [ ] Fase 1.5 — Geocodificação dos endereços (a ANP não publica coordenadas)
 - [ ] Fase 2 — API de consulta (raio, cidade, detalhe)
 - [ ] Fase 3 — Front Angular com mapa e lista
 - [ ] Fase 4 — Preços colaborativos
